@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+    <title>demand_distribution_census</title>
+    <layers>
+        <layer>
+            <datasource>
+                <type>ESRI Shapefile</type>
+                <path>demand_distribution_census.shp</path>
+            </datasource>
+            <layername>demand_distribution_census</layername>
+            <title/>
+            <variable_order>
+                <time_ids>
+                    <id>time 0</id>
+                </time_ids>
+                <var>POLY_ID</var>
+                <var>STATEFP</var>
+                <var>COUNTYFP</var>
+                <var>TRACTCE</var>
+                <var>GEOID</var>
+                <var>GEOIDFQ</var>
+                <var>NAME</var>
+                <var>NAMELSAD</var>
+                <var>MTFCC</var>
+                <var>FUNCSTAT</var>
+                <var>ALAND</var>
+                <var>AWATER</var>
+                <var>INTPTLAT</var>
+                <var>INTPTLON</var>
+                <var>index_righ</var>
+                <var>BoroCode</var>
+                <var>BoroName</var>
+                <var>geoid_1</var>
+                <var>
+                    expected_d
+                    <displayed_decimals>6</displayed_decimals>
+                </var>
+                <var>
+                    B01001_001
+                    <displayed_decimals>6</displayed_decimals>
+                </var>
+                <var>
+                    raw_total_
+                    <displayed_decimals>6</displayed_decimals>
+                </var>
+                <var>
+                    scaled_tot
+                    <displayed_decimals>6</displayed_decimals>
+                </var>
+                <var>
+                    pop_scaled
+                    <displayed_decimals>6</displayed_decimals>
+                </var>
+                <var>
+                    adj_pop
+                    <displayed_decimals>6</displayed_decimals>
+                </var>
+                <var>
+                    MORAN_STD
+                    <displayed_decimals>6</displayed_decimals>
+                </var>
+                <var>
+                    MORAN_LAG
+                    <displayed_decimals>6</displayed_decimals>
+                </var>
+            </variable_order>
+            <custom_classifications/>
+            <weights_entries>
+                <weights>
+                    <title>demand_distribution_census q1</title>
+                    <default/>
+                    <meta_info>
+                        <weights_type>queen</weights_type>
+                        <order>1</order>
+                        <inc_lower_orders>false</inc_lower_orders>
+                        <path>demand_distribution_census q1.gal</path>
+                        <id_variable>POLY_ID</id_variable>
+                        <symmetry>symmetric</symmetry>
+                        <num_observations>2347</num_observations>
+                        <min_neighbors>0</min_neighbors>
+                        <max_neighbors>18</max_neighbors>
+                        <mean_neighbors>6.4218150830847893</mean_neighbors>
+                        <median_neighbors>6</median_neighbors>
+                        <non_zero_perc>0.27361802654813761</non_zero_perc>
+                    </meta_info>
+                </weights>
+                <weights>
+                    <title>demand_distribution_census q2</title>
+                    <meta_info>
+                        <weights_type>queen</weights_type>
+                        <order>2</order>
+                        <inc_lower_orders>false</inc_lower_orders>
+                        <path>demand_distribution_census q2.gal</path>
+                        <id_variable>POLY_ID</id_variable>
+                        <symmetry>symmetric</symmetry>
+                        <num_observations>2347</num_observations>
+                        <min_neighbors>0</min_neighbors>
+                        <max_neighbors>40</max_neighbors>
+                        <mean_neighbors>13.593523647209203</mean_neighbors>
+                        <median_neighbors>13</median_neighbors>
+                        <non_zero_perc>0.57918720269319146</non_zero_perc>
+                    </meta_info>
+                </weights>
+                <weights>
+                    <title>demand_distribution_census q2_1</title>
+                    <meta_info>
+                        <weights_type>custom</weights_type>
+                        <path>demand_distribution_census q2.gal</path>
+                        <id_variable>POLY_ID</id_variable>
+                        <symmetry>symmetric</symmetry>
+                        <num_observations>2347</num_observations>
+                        <min_neighbors>0</min_neighbors>
+                        <max_neighbors>58</max_neighbors>
+                        <mean_neighbors>20.015338730293994</mean_neighbors>
+                        <median_neighbors>20</median_neighbors>
+                        <non_zero_perc>0.85280522924132907</non_zero_perc>
+                    </meta_info>
+                </weights>
+                <weights>
+                    <title>demand_distribution_census</title>
+                    <meta_info>
+                        <weights_type>rook</weights_type>
+                        <order>1</order>
+                        <inc_lower_orders>false</inc_lower_orders>
+                        <path>demand_distribution_census.gal</path>
+                        <id_variable>POLY_ID</id_variable>
+                        <symmetry>symmetric</symmetry>
+                        <num_observations>2347</num_observations>
+                        <min_neighbors>0</min_neighbors>
+                        <max_neighbors>17</max_neighbors>
+                        <mean_neighbors>5.4000852151682999</mean_neighbors>
+                        <median_neighbors>5</median_neighbors>
+                        <non_zero_perc>0.23008458522233916</non_zero_perc>
+                    </meta_info>
+                </weights>
+            </weights_entries>
+            <default_vars>
+                <default_var>
+                    <name>scaled_tot</name>
+                    <time_id>time 0</time_id>
+                </default_var>
+                <default_var>
+                    <name>scaled_tot</name>
+                    <time_id>time 0</time_id>
+                </default_var>
+                <default_var>
+                    <name/>
+                    <time_id>time 0</time_id>
+                </default_var>
+                <default_var>
+                    <name/>
+                    <time_id>time 0</time_id>
+                </default_var>
+            </default_vars>
+        </layer>
+    </layers>
+</project>
