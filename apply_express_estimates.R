@@ -1,18 +1,12 @@
-# ==========================================================
-# Gravity Model Analysis: Dubai Model Training & NYC Prediction
-# ==========================================================
-
-# Load required libraries
 library(tidyverse)
 library(lme4)
 library(splines)
 library(scales)
 
-# Constants
-epsilon <- 1e-6  # small constant to avoid log(0)
+epsilon <- 1e-6
 
 # ==========================================================
-# UTILITY FUNCTIONS
+# HELPER FUNCTIONS
 # ==========================================================
 
 check_required_cols <- function(df, required_cols, df_name = "dataframe") {
@@ -182,10 +176,7 @@ run_exponential_model <- function(flow_df, census_df) {
 # ==========================================================
 # VISUALIZATION FUNCTIONS
 # ==========================================================
-
 plot_random_effects <- function(model, city_name) {
-  # Plot random effects distributions
-  
   re <- ranef(model)
   df_re <- bind_rows(
     tibble(group = "origin", effect = re$origin[, "(Intercept)"]),
@@ -201,8 +192,6 @@ plot_random_effects <- function(model, city_name) {
 }
 
 plot_distance_decay <- function(spline_results, city_name) {
-  # Plot distance decay curve with exponential fit
-  
   # Scale predictions for plotting
   spline_results$pred_flow_scaled <- scales::rescale(spline_results$pred_flow)
   
@@ -228,8 +217,6 @@ plot_distance_decay <- function(spline_results, city_name) {
 
 run_dubai_analysis <- function(flow_filepath, census_filepath, city_name = "Dubai", 
                                dist_max = 30, spline_step = 5) {
-  # Run complete analysis for Dubai data
-  
   # Load data
   flow_df <- read_csv(path.expand(flow_filepath), show_col_types = FALSE)
   census_df <- read_csv(path.expand(census_filepath), show_col_types = FALSE)
@@ -262,8 +249,6 @@ run_dubai_analysis <- function(flow_filepath, census_filepath, city_name = "Duba
 }
 
 print_model_summary <- function(params, model_name, city_name) {
-  # Print formatted model summary
-  
   cat("\n", rep("=", 50), "\n", sep = "")
   cat(model_name, "Summary for", city_name, "\n")
   cat(rep("=", 50), "\n", sep = "")
@@ -276,14 +261,6 @@ print_model_summary <- function(params, model_name, city_name) {
   
   cat("\nFixed Effects Coefficients:\n")
   print(params$fixed_effects)
-  
-  if("log_mean_rent_dest" %in% names(params$fixed_effects)) {
-    cat(sprintf("log_mean_rent_dest coefficient: %.6f\n", 
-                params$fixed_effects["log_mean_rent_dest"]))
-  } else {
-    cat("⚠️ log_mean_rent_dest not in model (likely dropped)\n")
-  }
-  cat("\n")
 }
 
 # ==========================================================
@@ -291,10 +268,6 @@ print_model_summary <- function(params, model_name, city_name) {
 # ==========================================================
 
 predict_nyc_flows <- function(dubai_params, empty_od_file, census_file, T_total = 511000000, n_sims = 1000) {
-  # Predict NYC flows using Dubai model parameters with Monte Carlo sampling
-  
-  cat("=== NYC Flow Prediction using Dubai Parameters ===\n")
-  
   # Extract parameters from Dubai exponential model
   fixed_effects <- dubai_params$fixed_effects
   sigma_u <- sqrt(dubai_params$origin_var)    # origin RE SD
@@ -354,11 +327,9 @@ predict_nyc_flows <- function(dubai_params, empty_od_file, census_file, T_total 
   cat("OD pairs:", nrow(od_df), "\n")
   cat("Missing values in LP_base:", sum(is.na(od_df$LP_base)), "\n")
   
-  # Run Monte Carlo simulation
   cat("Running Monte Carlo simulation...\n")
   results <- run_monte_carlo_prediction(od_df, sigma_u, sigma_v, T_total, n_sims)
   
-  # Save results
   output_file <- "~/imperial/data/nyc_od_predicted_express_flows.csv"
   write_csv(results, output_file)
   cat("Results saved to:", output_file, "\n")
@@ -367,8 +338,6 @@ predict_nyc_flows <- function(dubai_params, empty_od_file, census_file, T_total 
 }
 
 run_monte_carlo_prediction <- function(od_df, sigma_u, sigma_v, T_total, n_sims) {
-  # Run Monte Carlo simulation for flow prediction
-  
   # Create index mappings
   origins <- unique(od_df$origin_h3)
   dests <- unique(od_df$dest_h3)
@@ -448,8 +417,6 @@ run_monte_carlo_prediction <- function(od_df, sigma_u, sigma_v, T_total, n_sims)
 # ==========================================================
 
 main <- function() {
-  # Main execution function
-  
   # File paths
   dubai_flow_file <- "~/imperial/delivery-tunnels/flow_df_for_r_dubai.csv"
   dubai_census_file <- "~/imperial/data/census_hex_dubai.csv"
